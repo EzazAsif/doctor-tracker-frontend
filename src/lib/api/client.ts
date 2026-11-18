@@ -43,6 +43,11 @@ function buildUrl(path: string, query?: Query) {
 
 let redirecting = false;
 
+/** called on logout so in-flight 401s do not race the redirect to /login */
+export function suppressAuthRedirect() {
+  redirecting = true;
+}
+
 function handleUnauthorized() {
   if (typeof window === "undefined" || redirecting) return;
   if (window.location.pathname.startsWith("/login")) return;

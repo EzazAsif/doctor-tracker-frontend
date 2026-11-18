@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { suppressAuthRedirect } from "@/lib/api/client";
 import { authApi } from "@/lib/api/endpoints";
 import { qk } from "./keys";
 
@@ -20,6 +21,9 @@ export function useLogout() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: authApi.logout,
+    onMutate: () => {
+      suppressAuthRedirect();
+    },
     onSettled: () => {
       qc.clear();
       window.location.assign("/login");
