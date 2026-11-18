@@ -31,10 +31,11 @@ export function useDoctorLookup(search: string, enabled = true) {
   });
 }
 
-export function useDoctor(id: string) {
+export function useDoctor(id: string, enabled = true) {
   return useQuery({
     queryKey: qk.doctors.detail(id),
     queryFn: ({ signal }) => doctorsApi.get(id, signal),
+    enabled: enabled && Boolean(id),
   });
 }
 

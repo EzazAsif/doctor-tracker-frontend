@@ -74,9 +74,9 @@ interface FilterBarProps {
 export function FilterBar({ children, search, activeCount = 0, onClear, className }: FilterBarProps) {
   return (
     <div className={cn("flex flex-col gap-3 border-b p-4 sm:px-5", className)}>
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-        {search && <div className="lg:max-w-sm lg:flex-1">{search}</div>}
-        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+      <div className="flex flex-col gap-3 xl:flex-row xl:items-start">
+        {search && <div className="xl:w-72 xl:shrink-0">{search}</div>}
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-1 sm:flex-wrap sm:items-center">
           {children}
           {activeCount > 0 && onClear && (
             <Button variant="ghost" onClick={onClear} className="col-span-2 text-muted-foreground sm:col-span-1">
