@@ -3,7 +3,7 @@
 import { useCallback, useMemo } from "react";
 import Link from "next/link";
 import { format, parseISO } from "date-fns";
-import { Activity, ArrowRight, Stethoscope, UserPlus, UsersRound } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ConditionsDonut } from "@/components/charts/conditions-donut";
 import { ChartCard } from "@/components/charts/chart-card";
 import { GenderBreakdown, SpecializationBreakdown, StatusBreakdown } from "@/components/charts/breakdowns";
@@ -12,7 +12,7 @@ import { TopDoctorsChart } from "@/components/charts/top-doctors-chart";
 import { DateRangePicker, type DateRangeValue } from "@/components/common/date-range-picker";
 import { ErrorState } from "@/components/common/error-state";
 import { PageHeader } from "@/components/common/page-header";
-import { StatCard } from "@/components/common/stat-card";
+import { StatStrip } from "@/components/common/stat-card";
 import { buttonVariants } from "@/components/ui/button";
 import { useDashboardStats } from "@/hooks/queries/use-dashboard";
 import { useUrlState } from "@/hooks/use-url-state";
@@ -60,44 +60,23 @@ export function DashboardView() {
         </div>
       ) : (
         <div className={isFetching && !isLoading ? "opacity-70 transition-opacity" : "transition-opacity"}>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
-            <StatCard
-              label="Doctors"
-              icon={Stethoscope}
-              loading={isLoading}
-              value={totals?.doctors.toLocaleString()}
-              hint={`${data?.specializationBreakdown.length ?? 0} specializations`}
-            />
-            <StatCard
-              label="Patients"
-              icon={UsersRound}
-              tone="sage"
-              loading={isLoading}
-              value={totals?.patients.toLocaleString()}
-              hint={
-                <>
-                  <span className="font-medium text-foreground tabular">{totals?.patientsInRange.toLocaleString()}</span> admitted in
-                  period
-                </>
-              }
-            />
-            <StatCard
-              label="New this month"
-              icon={UserPlus}
-              tone="terracotta"
-              loading={isLoading}
-              value={totals?.newPatientsThisMonth.toLocaleString()}
-              hint="Admissions since the 1st"
-            />
-            <StatCard
-              label="Avg per doctor"
-              icon={Activity}
-              tone="ochre"
-              loading={isLoading}
-              value={totals?.avgPatientsPerDoctor.toFixed(1)}
-              hint="Patients per doctor"
-            />
-          </div>
+          <StatStrip
+            loading={isLoading}
+            stats={[
+              {
+                label: "Doctors",
+                value: totals?.doctors.toLocaleString(),
+                hint: `across ${data?.specializationBreakdown.length ?? 0} specializations`,
+              },
+              {
+                label: "Patients",
+                value: totals?.patients.toLocaleString(),
+                hint: `${totals?.patientsInRange.toLocaleString() ?? 0} admitted in this period`,
+              },
+              { label: "New this month", value: totals?.newPatientsThisMonth.toLocaleString(), hint: "admitted since the 1st" },
+              { label: "Patients per doctor", value: totals?.avgPatientsPerDoctor.toFixed(1), hint: "average caseload" },
+            ]}
+          />
 
           <div className="mt-4 grid gap-4 lg:grid-cols-3">
             <ChartCard
