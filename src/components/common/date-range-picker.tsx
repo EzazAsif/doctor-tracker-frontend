@@ -100,23 +100,27 @@ export const DateRangePicker = memo(function DateRangePicker({
           </button>
         )}
       </div>
-      <PopoverContent align={align} className="w-auto p-0">
+      <PopoverContent
+        align={align}
+        className="w-[min(21rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] p-0 sm:w-auto"
+      >
         <div className="flex flex-col sm:flex-row">
-          <div className="flex gap-1 overflow-x-auto border-b p-2 sm:w-40 sm:flex-col sm:border-r sm:border-b-0">
+          <div className="grid grid-cols-2 gap-1 border-b p-2 sm:flex sm:w-40 sm:flex-col sm:border-r sm:border-b-0">
             {PRESETS.map((preset) => (
               <Button
                 key={preset.label}
                 variant="ghost"
                 size="sm"
-                className="shrink-0 justify-start font-normal"
+                className="min-w-0 justify-start truncate font-normal"
                 onClick={() => commit(...preset.range())}
               >
                 {preset.label}
               </Button>
             ))}
           </div>
-          <div className="p-1">
+          <div className="flex justify-center p-1">
             <Calendar
+              className="[--cell-size:--spacing(9)] sm:[--cell-size:--spacing(7)]"
               mode="range"
               numberOfMonths={1}
               selected={selected}
