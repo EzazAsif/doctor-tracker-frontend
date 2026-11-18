@@ -21,7 +21,6 @@ function SidebarBody({ onNavigate }: { onNavigate?: () => void }) {
         <Logo />
       </Link>
       <div>
-        <p className="mb-2 px-3 text-[11px] font-medium tracking-[0.12em] text-sidebar-muted/70 uppercase">Workspace</p>
         <SidebarNav onNavigate={onNavigate} />
       </div>
       <div className="mt-auto">

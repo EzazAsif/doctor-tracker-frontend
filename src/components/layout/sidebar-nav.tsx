@@ -22,7 +22,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
               "group flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium outline-none transition-colors",
               "focus-visible:ring-2 focus-visible:ring-sidebar-ring",
               active
-                ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]"
+                ? "bg-sidebar-primary text-sidebar-primary-foreground"
                 : "text-sidebar-muted hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
             )}
           >

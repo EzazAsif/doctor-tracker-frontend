@@ -7,13 +7,13 @@ export const metadata: Metadata = { title: "Sign in" };
 
 function PreviewCard() {
   return (
-    <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm">
+    <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5">
       <div className="flex flex-wrap items-center gap-2">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
           <span className="size-1.5 rounded-full bg-emerald-300" />
           Patients over time
         </span>
-        <span className="ml-auto font-mono text-[11px] tracking-widest text-white/40 uppercase">12 months</span>
+        <span className="ml-auto text-xs text-white/45">Last 12 months</span>
       </div>
       <svg viewBox="0 0 400 120" className="mt-4 h-28 w-full" aria-hidden>
         <defs>
@@ -46,7 +46,7 @@ function PreviewCard() {
           ["Insights", "Live charts"],
         ].map(([k, v]) => (
           <div key={k}>
-            <p className="text-[11px] tracking-wider text-white/45 uppercase">{k}</p>
+            <p className="text-xs text-white/50">{k}</p>
             <p className="mt-0.5 text-sm font-medium text-white/85">{v}</p>
           </div>
         ))}
