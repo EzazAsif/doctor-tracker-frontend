@@ -97,10 +97,8 @@ export function PatientFormSheet({ open, onOpenChange, patient, doctor }: Patien
   } = useForm<FormInput, unknown, Values>({ resolver: zodResolver(schema), defaultValues: defaults(null, doctor?._id) });
 
   useEffect(() => {
-    if (open) {
-      reset(defaults(patient, doctor?._id));
-      setPickedDoctor(null);
-    }
+    // a stale picked doctor is harmless: the picker only uses it when its id matches the field
+    if (open) reset(defaults(patient, doctor?._id));
   }, [open, patient, doctor?._id, reset]);
 
   const notesLength = useWatch({ control, name: "notes" })?.length ?? 0;
