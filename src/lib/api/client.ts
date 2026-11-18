@@ -53,6 +53,8 @@ function handleUnauthorized() {
   if (window.location.pathname.startsWith("/login")) return;
   redirecting = true;
   const next = encodeURIComponent(window.location.pathname + window.location.search);
+  // hard navigation so the proxy re-checks the (now missing) cookie
+  // eslint-disable-next-line @next/next/no-location-assign-relative-destination
   window.location.assign(`/login?next=${next}`);
 }
 

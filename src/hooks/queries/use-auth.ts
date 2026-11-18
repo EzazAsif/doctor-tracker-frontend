@@ -26,6 +26,8 @@ export function useLogout() {
     },
     onSettled: () => {
       qc.clear();
+      // full reload on purpose: drops every in-memory cache from the old session
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
       window.location.assign("/login");
     },
   });

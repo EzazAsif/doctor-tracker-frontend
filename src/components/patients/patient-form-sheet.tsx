@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, parseISO } from "date-fns";
 import { z } from "zod";
@@ -93,7 +93,6 @@ export function PatientFormSheet({ open, onOpenChange, patient, doctor }: Patien
     handleSubmit,
     reset,
     setError,
-    watch,
     formState: { errors, isDirty },
   } = useForm<FormInput, unknown, Values>({ resolver: zodResolver(schema), defaultValues: defaults(null, doctor?._id) });
 
@@ -104,7 +103,7 @@ export function PatientFormSheet({ open, onOpenChange, patient, doctor }: Patien
     }
   }, [open, patient, doctor?._id, reset]);
 
-  const notesLength = watch("notes")?.length ?? 0;
+  const notesLength = useWatch({ control, name: "notes" })?.length ?? 0;
 
   const onSubmit = handleSubmit((values) => {
     const body = {
