@@ -70,7 +70,7 @@ export function useDeletePatient(doctorId?: string) {
     mutationFn: (patient: Pick<Patient, "_id" | "name">) =>
       doctorId ? doctorsApi.removePatient(doctorId, patient._id) : patientsApi.remove(patient._id),
     onMutate: async (patient) => {
-      const filters = [{ queryKey: qk.patients.lists() }, { queryKey: qk.doctors.all }];
+      const filters: { queryKey: QueryKey }[] = [{ queryKey: qk.patients.lists() }, { queryKey: qk.doctors.all }];
       await Promise.all(filters.map((f) => qc.cancelQueries(f)));
 
       const snapshot: Snapshot = filters.flatMap((f) => qc.getQueriesData<Paginated<Patient>>(f));
