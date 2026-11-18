@@ -30,7 +30,14 @@ export function Logo({
 }) {
   return (
     <span className={cn("flex items-center gap-2", className)}>
-      <LogoMark />
+      {tone === "light" ? (
+        // pin is blue on blue otherwise, give it a little white tile
+        <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-white">
+          <LogoMark size={30} />
+        </span>
+      ) : (
+        <LogoMark />
+      )}
       <span
         className={cn(
           "font-heading text-[19px] leading-none font-bold tracking-tight",
