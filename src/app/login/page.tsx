@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Image from "next/image";
 import { Logo } from "@/components/layout/logo";
 import { LoginForm } from "./login-form";
 
@@ -9,8 +10,8 @@ function PreviewCard() {
   return (
     <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2.5 py-1 text-xs font-medium text-emerald-200">
-          <span className="size-1.5 rounded-full bg-emerald-300" />
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/25 bg-sky-300/10 px-2.5 py-1 text-xs font-medium text-sky-100">
+          <span className="size-1.5 rounded-full bg-brand-sky" />
           Patients over time
         </span>
         <span className="ml-auto text-xs text-white/45">Last 12 months</span>
@@ -18,8 +19,8 @@ function PreviewCard() {
       <svg viewBox="0 0 400 120" className="mt-4 h-28 w-full" aria-hidden>
         <defs>
           <linearGradient id="login-fill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#3fb59c" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#3fb59c" stopOpacity="0" />
+            <stop offset="0%" stopColor="#2aa8f2" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#2aa8f2" stopOpacity="0" />
           </linearGradient>
         </defs>
         {[30, 60, 90].map((y) => (
@@ -32,12 +33,12 @@ function PreviewCard() {
         <path
           d="M0 98 C40 92 60 80 100 74 S170 58 200 60 S260 52 290 40 S350 22 400 26"
           fill="none"
-          stroke="#3fb59c"
+          stroke="#2aa8f2"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
-        <circle cx="290" cy="40" r="9" fill="#3fb59c" fillOpacity="0.2" />
-        <circle cx="290" cy="40" r="4" fill="#3fb59c" />
+        <circle cx="290" cy="40" r="9" fill="#2aa8f2" fillOpacity="0.2" />
+        <circle cx="290" cy="40" r="4" fill="#2aa8f2" />
       </svg>
       <div className="mt-3 grid grid-cols-3 gap-3 border-t border-white/10 pt-4 text-white">
         {[
@@ -69,7 +70,7 @@ export default function LoginPage() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute top-1/3 -left-32 size-[420px] rounded-full bg-[#3fb59c]/10 blur-3xl"
+          className="pointer-events-none absolute top-1/3 -left-32 size-[420px] rounded-full bg-[#2aa8f2]/10 blur-3xl"
         />
 
         <Logo />
@@ -80,7 +81,7 @@ export default function LoginPage() {
             <br />
             Every patient.
             <br />
-            <span className="text-[#5fd0b5]">One calm view.</span>
+            <span className="text-brand-sky">One calm view.</span>
           </h1>
           <p className="mt-6 max-w-md text-base leading-relaxed text-white/65">
             Manage your practitioners, keep caseloads balanced and see admissions trend at a glance.
@@ -94,10 +95,17 @@ export default function LoginPage() {
       </section>
 
       <section className="flex flex-col px-5 py-8 sm:px-10">
-        <div className="lg:hidden">
-          <Logo tone="dark" />
-        </div>
-        <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-10">
+        <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-6 sm:py-10">
+          <div className="mb-8 self-start rounded-2xl dark:bg-white dark:p-3">
+            <Image
+              src="/logo.png"
+              alt="DoctorTracker"
+              width={900}
+              height={849}
+              priority
+              className="h-auto w-[168px] sm:w-[188px]"
+            />
+          </div>
           <Suspense>
             <LoginForm />
           </Suspense>

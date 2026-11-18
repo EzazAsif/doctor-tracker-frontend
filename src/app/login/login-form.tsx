@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ArrowRight, Eye, EyeOff, Loader2, LockKeyhole } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
 import { FormField } from "@/components/common/form-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -55,9 +55,6 @@ export function LoginForm() {
 
   return (
     <div>
-      <span className="mb-6 grid size-11 place-items-center rounded-xl bg-accent text-accent-foreground">
-        <LockKeyhole className="size-5" strokeWidth={1.8} />
-      </span>
       <h2 className="text-3xl font-semibold">Sign in</h2>
       <p className="mt-1.5 text-sm text-muted-foreground">Admin access only. Use your Doctor Tracker account.</p>
 
