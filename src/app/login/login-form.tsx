@@ -109,15 +109,6 @@ export function LoginForm() {
         </Button>
       </form>
 
-      <div className="mt-8 rounded-lg border border-dashed bg-card/60 px-4 py-3 text-[13px] text-muted-foreground">
-        <span className="font-medium text-foreground">Demo account</span>
-        <div className="mt-1 grid grid-cols-[72px_1fr] gap-y-0.5 text-[13px]">
-          <span>email</span>
-          <span className="text-foreground">admin@doctortracker.com</span>
-          <span>password</span>
-          <span className="text-foreground">Admin@12345</span>
-        </div>
-      </div>
     </div>
   );
 }
