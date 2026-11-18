@@ -7,8 +7,9 @@ const secret = new TextEncoder().encode(process.env.JWT_SECRET ?? "");
 async function hasValidSession(token: string | undefined) {
   if (!token || !process.env.JWT_SECRET) return false;
   try {
-    await jwtVerify(token, secret, { algorithms: ["HS256"] });
-    return true;
+    const { payload } = await jwtVerify(token, secret, { algorithms: ["HS256"] });
+    // authorization: only admins may use the portal
+    return payload.role === "admin";
   } catch {
     return false;
   }
@@ -40,5 +41,5 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // everything except the API rewrite, Next internals and static files
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\.(?:svg|png|jpg|jpeg|webp|ico)$).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|webp|ico)$).*)"],
 };
