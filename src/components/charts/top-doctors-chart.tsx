@@ -43,11 +43,11 @@ export const TopDoctorsChart = memo(function TopDoctorsChart({
           <YAxis
             type="category"
             dataKey="name"
-            width={132}
+            width={168}
             tickLine={false}
             axisLine={false}
             tick={{ fill: "var(--foreground)", fontSize: 12.5 }}
-            tickFormatter={(v: string) => (v.length > 18 ? `${v.slice(0, 17)}…` : v)}
+            tickFormatter={(v: string) => (v.length > 22 ? `${v.slice(0, 21)}…` : v)}
           />
           <Tooltip content={TooltipContent} cursor={{ fill: "var(--muted)", opacity: 0.6 }} />
           <Bar

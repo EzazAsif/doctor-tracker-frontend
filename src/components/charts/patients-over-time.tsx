@@ -17,7 +17,7 @@ function TooltipContent({ active, payload }: TooltipContentProps<ValueType, Name
 
 export const PatientsOverTimeChart = memo(function PatientsOverTimeChart({
   data,
-  height = 280,
+  height = 340,
 }: {
   data: DashboardStats["patientsOverTime"];
   height?: number;

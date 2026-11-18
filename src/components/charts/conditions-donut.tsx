@@ -42,7 +42,7 @@ export const ConditionsDonut = memo(function ConditionsDonut({ data }: { data: D
   }, [data]);
 
   return (
-    <div className="flex flex-col gap-6 sm:flex-row sm:items-center lg:flex-col xl:flex-row">
+    <div className="flex flex-col gap-6 sm:flex-row sm:items-center lg:flex-col lg:items-stretch">
       <div className="relative mx-auto size-[180px] shrink-0">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
