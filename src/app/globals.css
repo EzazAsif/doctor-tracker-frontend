@@ -43,6 +43,10 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-terracotta: var(--terracotta);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-sky: var(--brand-sky);
+  --color-brand-teal: var(--brand-teal);
   --color-status-admitted: var(--status-admitted);
   --color-status-admitted-bg: var(--status-admitted-bg);
   --color-status-treatment: var(--status-treatment);
@@ -60,107 +64,111 @@
   --radius-4xl: calc(var(--radius) * 3);
 }
 
-/* Clinical Evergreen — light */
+/* brand colours come from the logo: navy, blue, sky, teal */
 :root {
   --radius: 0.5rem;
-  --background: #f6f5f1;
-  --foreground: #16201d;
-  --card: #ffffff;
-  --card-foreground: #16201d;
-  --popover: #ffffff;
-  --popover-foreground: #16201d;
-  --primary: #0e6b5c;
-  --primary-foreground: #ffffff;
-  --secondary: #eef0eb;
-  --secondary-foreground: #24312d;
-  --muted: #f0efea;
-  --muted-foreground: #66726d;
-  --accent: #e3efea;
-  --accent-foreground: #0b4a40;
-  --destructive: #c2410c;
-  --border: #e4e2da;
-  --input: #dddbd2;
-  --ring: #0e6b5c;
-  --terracotta: #d9663a;
+  --brand-navy: #0b2d5b;
+  --brand-blue: #1677e0;
+  --brand-sky: #2aa8f2;
+  --brand-teal: #13a58a;
 
-  --chart-1: #00806a;
+  --background: #f5f7fa;
+  --foreground: #0e1e33;
+  --card: #ffffff;
+  --card-foreground: #0e1e33;
+  --popover: #ffffff;
+  --popover-foreground: #0e1e33;
+  --primary: #1677e0;
+  --primary-foreground: #ffffff;
+  --secondary: #eef2f7;
+  --secondary-foreground: #1c2e46;
+  --muted: #f0f3f7;
+  --muted-foreground: #5b6b80;
+  --accent: #e6f0fc;
+  --accent-foreground: #0b2d5b;
+  --destructive: #d23a2a;
+  --border: #e2e7ee;
+  --input: #d5dce6;
+  --ring: #1677e0;
+  --terracotta: #13a58a;
+
+  --chart-1: #1677e0;
   --chart-2: #d9632f;
-  --chart-3: #7a52a8;
-  --chart-4: #c99a1e;
-  --chart-5: #b8457a;
-  --chart-6: #6b8f2a;
-  --chart-other: #a8a397;
-  --chart-grid: #ecebe5;
+  --chart-3: #13a58a;
+  --chart-4: #8d4fb0;
+  --chart-5: #c99a1e;
+  --chart-6: #c0436a;
+  --chart-other: #a3adba;
+  --chart-grid: #e9edf2;
 
   --status-admitted: #9a5b0b;
   --status-admitted-bg: #fbefd9;
-  --status-treatment: #0b5a4d;
-  --status-treatment-bg: #dcefe8;
-  --status-recovered: #3c7a3a;
-  --status-recovered-bg: #e4f1df;
-  --status-discharged: #5f5a52;
-  --status-discharged-bg: #ecebe6;
+  --status-treatment: #0f5db5;
+  --status-treatment-bg: #e3eefc;
+  --status-recovered: #0b7a66;
+  --status-recovered-bg: #ddf3ee;
+  --status-discharged: #5b6676;
+  --status-discharged-bg: #eceff3;
 
-  --sidebar: #0b2b26;
-  --sidebar-foreground: #d6e4df;
-  --sidebar-muted: #8fb0a6;
-  --sidebar-primary: #0e6b5c;
+  --sidebar: #0b2d5b;
+  --sidebar-foreground: #d5e2f2;
+  --sidebar-muted: #9bb3d1;
+  --sidebar-primary: #1677e0;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #13433c;
+  --sidebar-accent: #123c70;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #173d36;
-  --sidebar-ring: #3fb59c;
+  --sidebar-border: #10386a;
+  --sidebar-ring: #2aa8f2;
 }
 
-/* Clinical Evergreen — dark */
 .dark {
-  --background: #0c1412;
-  --foreground: #e8ece9;
-  --card: #121c1a;
-  --card-foreground: #e8ece9;
-  --popover: #15201d;
-  --popover-foreground: #e8ece9;
-  --primary: #3fb59c;
-  --primary-foreground: #06201b;
-  --secondary: #1a2724;
-  --secondary-foreground: #d6e0dc;
-  --muted: #17221f;
-  --muted-foreground: #8fa39c;
-  --accent: #183530;
-  --accent-foreground: #bfe6db;
-  --destructive: #f07a50;
-  --border: #22302c;
-  --input: #2a3a36;
-  --ring: #3fb59c;
-  --terracotta: #e07a52;
+  --background: #0a1220;
+  --foreground: #e6edf6;
+  --card: #101b2c;
+  --card-foreground: #e6edf6;
+  --popover: #132034;
+  --popover-foreground: #e6edf6;
+  --primary: #3b8ff0;
+  --primary-foreground: #04122a;
+  --secondary: #172539;
+  --secondary-foreground: #d3deec;
+  --muted: #142136;
+  --muted-foreground: #8ea0b8;
+  --accent: #132b4a;
+  --accent-foreground: #c4dcf8;
+  --destructive: #f2765f;
+  --border: #1f2d42;
+  --input: #283a54;
+  --ring: #3b8ff0;
+  --terracotta: #2ec4a4;
 
-  --chart-1: #1f9e84;
+  --chart-1: #3b8ff0;
   --chart-2: #d96a3a;
-  --chart-3: #9373c8;
-  --chart-4: #ab8524;
-  --chart-5: #c75e92;
-  --chart-6: #7a9e34;
-  --chart-other: #5d5a52;
-  --chart-grid: #1d2a27;
+  --chart-3: #16a085;
+  --chart-4: #9a6fd0;
+  --chart-5: #ab8524;
+  --chart-6: #c75e92;
+  --chart-other: #4c5a6e;
+  --chart-grid: #1a273a;
 
   --status-admitted: #f0c27a;
   --status-admitted-bg: #3a2a12;
-  --status-treatment: #7fd8c3;
-  --status-treatment-bg: #123a33;
-  --status-recovered: #a6d79a;
-  --status-recovered-bg: #1d3319;
-  --status-discharged: #bdb8ae;
-  --status-discharged-bg: #2a2925;
+  --status-treatment: #9cc8fb;
+  --status-treatment-bg: #15325a;
+  --status-recovered: #7fdcc6;
+  --status-recovered-bg: #0f3a33;
+  --status-discharged: #b4bfcd;
+  --status-discharged-bg: #222d3c;
 
-  --sidebar: #08100e;
-  --sidebar-foreground: #c9d6d1;
-  --sidebar-muted: #6f8a82;
-  --sidebar-primary: #17332d;
-  --sidebar-primary-foreground: #e8f5f1;
-  --sidebar-accent: #14231f;
+  --sidebar: #07101d;
+  --sidebar-foreground: #c8d5e6;
+  --sidebar-muted: #7d90aa;
+  --sidebar-primary: #16345c;
+  --sidebar-primary-foreground: #eaf3ff;
+  --sidebar-accent: #111f33;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #16211e;
-  --sidebar-ring: #3fb59c;
+  --sidebar-border: #142034;
+  --sidebar-ring: #2aa8f2;
 }
 
 @layer base {
