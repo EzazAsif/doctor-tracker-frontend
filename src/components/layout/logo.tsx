@@ -31,7 +31,7 @@ export function Logo({
   return (
     <span className={cn("flex items-center gap-2", className)}>
       {tone === "light" ? (
-        // pin is blue on blue otherwise, give it a little white tile
+        // pin blends into the dark sidebar w/o this, so give it a little white tile
         <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-white">
           <LogoMark size={30} />
         </span>
@@ -44,8 +44,8 @@ export function Logo({
           hideTextOnMobile && "hidden sm:inline",
         )}
       >
-        <span className={tone === "light" ? "text-white" : "text-brand-navy dark:text-white"}>Doctor</span>
-        <span className={tone === "light" ? "text-brand-sky" : "text-brand-blue dark:text-brand-sky"}>Tracker</span>
+        <span className={tone === "light" ? "text-white" : "text-brand-deep dark:text-white"}>Doctor</span>
+        <span className={tone === "light" ? "text-brand-mint" : "text-brand-green dark:text-brand-mint"}>Tracker</span>
       </span>
     </span>
   );
