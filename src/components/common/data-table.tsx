@@ -122,7 +122,7 @@ export function DataTable<T>({
           <div className={cn("overflow-x-auto", renderMobileCard && "hidden md:block")}>
             <table className="w-full min-w-[720px] text-sm">
               {caption && <caption className="sr-only">{caption}</caption>}
-              <thead className="sticky top-0 z-[1] bg-muted/60 backdrop-blur">
+              <thead className="bg-muted/40">
                 <tr className="border-b">
                   {columns.map((col) => {
                     const active = col.sortKey && col.sortKey === sortField;
@@ -132,7 +132,7 @@ export function DataTable<T>({
                         scope="col"
                         aria-sort={active ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
                         className={cn(
-                          "h-11 px-4 text-left text-[11px] font-medium tracking-[0.08em] whitespace-nowrap text-muted-foreground uppercase first:pl-5 last:pr-5",
+                          "h-11 px-4 text-left text-[13px] font-medium whitespace-nowrap text-muted-foreground first:pl-5 last:pr-5",
                           col.headClassName,
                         )}
                       >
@@ -141,7 +141,7 @@ export function DataTable<T>({
                             type="button"
                             onClick={() => toggleSort(col.sortKey!)}
                             className={cn(
-                              "-mx-1.5 inline-flex items-center gap-1 rounded px-1.5 py-1 uppercase outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
+                              "-mx-1.5 inline-flex items-center gap-1 rounded px-1.5 py-1 outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
                               active && "text-foreground",
                             )}
                           >

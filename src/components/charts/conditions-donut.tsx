@@ -50,9 +50,9 @@ export const ConditionsDonut = memo(function ConditionsDonut({ data }: { data: D
               data={slices}
               dataKey="count"
               nameKey="name"
-              innerRadius={60}
+              innerRadius={72}
               outerRadius={88}
-              paddingAngle={1.5}
+              paddingAngle={1}
               stroke="var(--card)"
               strokeWidth={2}
               isAnimationActive={false}
@@ -67,7 +67,7 @@ export const ConditionsDonut = memo(function ConditionsDonut({ data }: { data: D
         <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
           <div>
             <p className="font-heading text-2xl font-semibold tabular">{total.toLocaleString()}</p>
-            <p className="text-[11px] tracking-[0.1em] text-muted-foreground uppercase">patients</p>
+            <p className="text-xs text-muted-foreground">patients</p>
           </div>
         </div>
       </div>
