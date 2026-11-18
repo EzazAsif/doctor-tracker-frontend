@@ -96,7 +96,7 @@ export default function LoginPage() {
 
       <section className="flex flex-col px-5 py-8 sm:px-10">
         <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-6 sm:py-10">
-          <div className="mb-8 self-start rounded-2xl dark:bg-white dark:p-3">
+          <div className="mb-8 self-center rounded-2xl dark:bg-white dark:p-3">
             <Image
               src="/logo.png"
               alt="DoctorTracker"

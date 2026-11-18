@@ -55,8 +55,8 @@ export function LoginForm() {
 
   return (
     <div>
-      <h2 className="text-3xl font-semibold">Sign in</h2>
-      <p className="mt-1.5 text-sm text-muted-foreground">Admin access only. Use your Doctor Tracker account.</p>
+      <h2 className="text-center text-3xl font-semibold">Sign in</h2>
+      <p className="mt-1.5 text-center text-sm text-muted-foreground">Admin access only. Use your Doctor Tracker account.</p>
 
       <form onSubmit={onSubmit} noValidate className="mt-8 flex flex-col gap-5">
         {formError && (
