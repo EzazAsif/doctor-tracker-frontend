@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-bricolage);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -17,7 +17,9 @@
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
   --color-sidebar: var(--sidebar);
+  --color-chart-6: var(--chart-6);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -39,92 +41,141 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-terracotta: var(--terracotta);
+  --color-status-admitted: var(--status-admitted);
+  --color-status-admitted-bg: var(--status-admitted-bg);
+  --color-status-treatment: var(--status-treatment);
+  --color-status-treatment-bg: var(--status-treatment-bg);
+  --color-status-recovered: var(--status-recovered);
+  --color-status-recovered-bg: var(--status-recovered-bg);
+  --color-status-discharged: var(--status-discharged);
+  --color-status-discharged-bg: var(--status-discharged-bg);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 2.5);
+  --radius-4xl: calc(var(--radius) * 3);
 }
 
+/* Clinical Evergreen — light */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 0.5rem;
+  --background: #f6f5f1;
+  --foreground: #16201d;
+  --card: #ffffff;
+  --card-foreground: #16201d;
+  --popover: #ffffff;
+  --popover-foreground: #16201d;
+  --primary: #0e6b5c;
+  --primary-foreground: #ffffff;
+  --secondary: #eef0eb;
+  --secondary-foreground: #24312d;
+  --muted: #f0efea;
+  --muted-foreground: #66726d;
+  --accent: #e3efea;
+  --accent-foreground: #0b4a40;
+  --destructive: #c2410c;
+  --border: #e4e2da;
+  --input: #dddbd2;
+  --ring: #0e6b5c;
+  --terracotta: #d9663a;
+
+  --chart-1: #0e6b5c;
+  --chart-2: #d9663a;
+  --chart-3: #5fae97;
+  --chart-4: #d4a03a;
+  --chart-5: #7b4a72;
+  --chart-6: #9a958a;
+
+  --status-admitted: #9a5b0b;
+  --status-admitted-bg: #fbefd9;
+  --status-treatment: #0b5a4d;
+  --status-treatment-bg: #dcefe8;
+  --status-recovered: #3c7a3a;
+  --status-recovered-bg: #e4f1df;
+  --status-discharged: #5f5a52;
+  --status-discharged-bg: #ecebe6;
+
+  --sidebar: #0b2b26;
+  --sidebar-foreground: #d6e4df;
+  --sidebar-muted: #8fb0a6;
+  --sidebar-primary: #0e6b5c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #13433c;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #173d36;
+  --sidebar-ring: #3fb59c;
 }
 
+/* Clinical Evergreen — dark */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #0c1412;
+  --foreground: #e8ece9;
+  --card: #121c1a;
+  --card-foreground: #e8ece9;
+  --popover: #15201d;
+  --popover-foreground: #e8ece9;
+  --primary: #3fb59c;
+  --primary-foreground: #06201b;
+  --secondary: #1a2724;
+  --secondary-foreground: #d6e0dc;
+  --muted: #17221f;
+  --muted-foreground: #8fa39c;
+  --accent: #183530;
+  --accent-foreground: #bfe6db;
+  --destructive: #f07a50;
+  --border: #22302c;
+  --input: #2a3a36;
+  --ring: #3fb59c;
+  --terracotta: #e07a52;
+
+  --chart-1: #3fb59c;
+  --chart-2: #e07a52;
+  --chart-3: #8fd1bc;
+  --chart-4: #e2b45a;
+  --chart-5: #b07ba6;
+  --chart-6: #8a8679;
+
+  --status-admitted: #f0c27a;
+  --status-admitted-bg: #3a2a12;
+  --status-treatment: #7fd8c3;
+  --status-treatment-bg: #123a33;
+  --status-recovered: #a6d79a;
+  --status-recovered-bg: #1d3319;
+  --status-discharged: #bdb8ae;
+  --status-discharged-bg: #2a2925;
+
+  --sidebar: #08100e;
+  --sidebar-foreground: #c9d6d1;
+  --sidebar-muted: #6f8a82;
+  --sidebar-primary: #3fb59c;
+  --sidebar-primary-foreground: #06201b;
+  --sidebar-accent: #14231f;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #16211e;
+  --sidebar-ring: #3fb59c;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
   }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
 }
