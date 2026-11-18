@@ -20,6 +20,8 @@ interface FilterSelectProps {
   onChange: (value: string) => void;
   /** label for the "no filter" option, e.g. "All conditions" */
   allLabel?: string;
+  /** outline the control when a value is set (off for sort) */
+  highlight?: boolean;
   className?: string;
 }
 
@@ -29,6 +31,7 @@ export const FilterSelect = memo(function FilterSelect({
   options,
   onChange,
   allLabel,
+  highlight = true,
   className,
 }: FilterSelectProps) {
   const items = useMemo(
@@ -44,7 +47,7 @@ export const FilterSelect = memo(function FilterSelect({
     >
       <SelectTrigger
         aria-label={label}
-        className={cn("w-full min-w-0 bg-card sm:w-auto sm:min-w-[160px]", value && "border-primary/40 text-foreground", className)}
+        className={cn("w-full min-w-0 bg-card sm:w-auto sm:min-w-[160px]", highlight && value && "border-primary/40 text-foreground", className)}
       >
         <SelectValue placeholder={label} />
       </SelectTrigger>
