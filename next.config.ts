@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
+const backendUrl = (process.env.BACKEND_URL ?? "http://localhost:5000").replace(/\/$/, "");
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
   turbopack: {
     rules: {
       "*.css": {
@@ -11,6 +10,16 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  // The browser only ever talks to /api on this origin, so the auth cookie
+  // set by the backend stays first-party.
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${backendUrl}/api/:path*`,
+      },
+    ];
   },
 };
 
