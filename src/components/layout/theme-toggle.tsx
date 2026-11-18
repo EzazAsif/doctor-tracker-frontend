@@ -9,9 +9,9 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       size="icon-lg"
-      className="rounded-full"
+      className="rounded-full text-white hover:bg-white/10 hover:text-white"
       aria-label="Toggle colour theme"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >

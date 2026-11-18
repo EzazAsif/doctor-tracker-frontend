@@ -46,18 +46,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SheetContent>
       </Sheet>
 
-      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border/70 bg-background/85 px-4 backdrop-blur-md sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-20 flex h-16 items-center gap-3 bg-sidebar px-4 text-sidebar-foreground sm:px-6 lg:px-8">
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon-lg"
-          className="lg:hidden"
+          className="text-white hover:bg-white/10 hover:text-white lg:hidden"
           aria-label="Open navigation"
           onClick={() => setOpen(true)}
         >
           <Menu />
         </Button>
         <Link href="/dashboard" className="rounded-lg lg:hidden" aria-label="Doctor Tracker home">
-          <Logo tone="dark" hideTextOnMobile />
+          <Logo hideTextOnMobile />
         </Link>
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
