@@ -16,14 +16,14 @@ export function applyServerErrors<T extends FieldValues>(
   for (const detail of error.details) {
     const field = detail.path.split(".")[0];
     if (fields.includes(field)) {
-      setError(field as Path<T>, { type: "server", message: detail.message });
+      setError(field as Path<T>, { type: "server", message: capitalize(detail.message) });
       applied = true;
     }
   }
 
   // duplicate email comes back as a 409 without field details
   if (!applied && error.code === "CONFLICT" && fields.includes("email")) {
-    setError("email" as Path<T>, { type: "server", message: error.message || "Email is already in use" });
+    setError("email" as Path<T>, { type: "server", message: capitalize(error.message || "Email is already in use") });
     applied = true;
   }
 
@@ -31,3 +31,7 @@ export function applyServerErrors<T extends FieldValues>(
 }
 
 export const PHONE_RE = /^[0-9+\-()\s]{7,20}$/;
+
+function capitalize(text: string) {
+  return text ? text[0].toUpperCase() + text.slice(1) : text;
+}
