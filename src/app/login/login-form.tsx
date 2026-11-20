@@ -19,9 +19,17 @@ const schema = z.object({
 type Values = z.infer<typeof schema>;
 
 function safeNext(next: string | null) {
-  // only allow same-site relative paths
-  if (!next || !next.startsWith("/") || next.startsWith("//") || next.startsWith("/login")) return "/dashboard";
-  return next;
+  if (!next) return "/dashboard";
+
+  try {
+    const target = new URL(next, window.location.origin);
+    if (target.origin !== window.location.origin || target.pathname === "/login" || target.pathname.startsWith("/login/")) {
+      return "/dashboard";
+    }
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return "/dashboard";
+  }
 }
 
 export function LoginForm() {
