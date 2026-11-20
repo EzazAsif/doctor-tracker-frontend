@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { format, parseISO } from "date-fns";
-import { Eye, Pencil, Plus, Stethoscope, Trash2 } from "lucide-react";
+import { Eye, Pencil, Plus, Stethoscope, Trash2, Upload } from "lucide-react";
 import { Avatar, Pill } from "@/components/common/badges";
 import { DataTable, type Column } from "@/components/common/data-table";
 import { DateRangePicker, type DateRangeValue } from "@/components/common/date-range-picker";
@@ -17,6 +17,7 @@ import { RowActions } from "@/components/common/row-actions";
 import { SearchInput } from "@/components/common/search-input";
 import { DeleteDoctorDialog } from "@/components/doctors/delete-doctor-dialog";
 import { DoctorFormDialog } from "@/components/doctors/doctor-form-dialog";
+import { CsvImportDialog } from "@/components/common/csv-import-dialog";
 import { Button } from "@/components/ui/button";
 import { useDoctorOptions, useDoctors } from "@/hooks/queries/use-doctors";
 import { toInt, useUrlState } from "@/hooks/use-url-state";
@@ -39,6 +40,7 @@ export function DoctorsView() {
   const router = useRouter();
   const { values, setParams, clear } = useUrlState(KEYS, { sort: "-createdAt" });
   const [formOpen, setFormOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const [editing, setEditing] = useState<Doctor | null>(null);
   const [deleting, setDeleting] = useState<Doctor | null>(null);
 
@@ -185,10 +187,16 @@ export function DoctorsView() {
             : "Practitioners and their caseloads"
         }
         actions={
-          <Button size="lg" onClick={openCreate} className="w-full sm:w-auto">
-            <Plus data-icon="inline-start" />
-            Add doctor
-          </Button>
+          <>
+            <Button variant="outline" size="lg" onClick={() => setImportOpen(true)} className="w-full sm:w-auto">
+              <Upload data-icon="inline-start" />
+              Import CSV
+            </Button>
+            <Button size="lg" onClick={openCreate} className="w-full sm:w-auto">
+              <Plus data-icon="inline-start" />
+              Add doctor
+            </Button>
+          </>
         }
       />
 
@@ -270,6 +278,7 @@ export function DoctorsView() {
         doctor={editing}
         onCreated={(d) => router.push(`/doctors/${d._id}`)}
       />
+      <CsvImportDialog kind="doctors" open={importOpen} onOpenChange={setImportOpen} />
       <DeleteDoctorDialog doctor={deleting} onOpenChange={(open) => !open && setDeleting(null)} />
     </>
   );

@@ -56,6 +56,14 @@ export function useCreateDoctor() {
   });
 }
 
+export function useImportDoctors() {
+  const invalidate = useInvalidateDoctors();
+  return useMutation({
+    mutationFn: doctorsApi.importCsv,
+    onSuccess: invalidate,
+  });
+}
+
 export function useUpdateDoctor() {
   const qc = useQueryClient();
   const invalidate = useInvalidateDoctors();

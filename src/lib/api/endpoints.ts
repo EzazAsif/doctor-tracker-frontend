@@ -14,6 +14,12 @@ import type {
 
 type Data<T> = { data: T };
 
+export interface ImportResult {
+  total: number;
+  imported: number;
+  errors: { row: number; message: string }[];
+}
+
 export interface ListParams {
   page?: number;
   limit?: number;
@@ -50,6 +56,8 @@ export const doctorsApi = {
     api<Data<DoctorLookup[]>>("/doctors/lookup", { query: { search }, signal }).then((r) => r.data),
   get: (id: ID, signal?: AbortSignal) => api<Data<Doctor>>(`/doctors/${id}`, { signal }).then((r) => r.data),
   create: (body: DoctorInput) => api<Data<Doctor>>("/doctors", { method: "POST", body }).then((r) => r.data),
+  importCsv: (rows: Record<string, string>[]) =>
+    api<Data<ImportResult>>("/doctors/import", { method: "POST", body: { rows } }).then((r) => r.data),
   update: (id: ID, body: Partial<DoctorInput>) =>
     api<Data<Doctor>>(`/doctors/${id}`, { method: "PATCH", body }).then((r) => r.data),
   remove: (id: ID) =>
@@ -67,6 +75,8 @@ export const patientsApi = {
     api<Paginated<Patient>>("/patients", { query: { ...params }, signal }),
   get: (id: ID) => api<Data<Patient>>(`/patients/${id}`).then((r) => r.data),
   create: (body: PatientInput) => api<Data<Patient>>("/patients", { method: "POST", body }).then((r) => r.data),
+  importCsv: (rows: Record<string, string>[]) =>
+    api<Data<ImportResult>>("/patients/import", { method: "POST", body: { rows } }).then((r) => r.data),
   update: (id: ID, body: Partial<PatientInput>) =>
     api<Data<Patient>>(`/patients/${id}`, { method: "PATCH", body }).then((r) => r.data),
   remove: (id: ID) => api<Data<{ deleted: true }>>(`/patients/${id}`, { method: "DELETE" }),

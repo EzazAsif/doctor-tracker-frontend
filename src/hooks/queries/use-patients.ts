@@ -40,6 +40,14 @@ export function useCreatePatient() {
   });
 }
 
+export function useImportPatients() {
+  const invalidate = useInvalidatePatientData();
+  return useMutation({
+    mutationFn: patientsApi.importCsv,
+    onSuccess: invalidate,
+  });
+}
+
 export function useAddDoctorPatient(doctorId: string) {
   const invalidate = useInvalidatePatientData();
   return useMutation({

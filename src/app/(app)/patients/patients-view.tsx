@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { Plus, UsersRound } from "lucide-react";
+import { Plus, Upload, UsersRound } from "lucide-react";
 import { STATUS_LABEL } from "@/components/common/badges";
 import { DataTable } from "@/components/common/data-table";
 import { DateRangePicker, type DateRangeValue } from "@/components/common/date-range-picker";
@@ -13,6 +13,7 @@ import { Pagination } from "@/components/common/pagination";
 import { SearchInput } from "@/components/common/search-input";
 import { DoctorPicker } from "@/components/doctors/doctor-picker";
 import { DeletePatientDialog } from "@/components/patients/delete-patient-dialog";
+import { CsvImportDialog } from "@/components/common/csv-import-dialog";
 import { patientColumns, PatientMobileCard } from "@/components/patients/patient-columns";
 import { PatientFormSheet } from "@/components/patients/patient-form-sheet";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,7 @@ const SORT_OPTIONS: Option[] = [
 export function PatientsView() {
   const { values, setParams, clear } = useUrlState(KEYS, { sort: "-admissionDate" });
   const [formOpen, setFormOpen] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const [editing, setEditing] = useState<Patient | null>(null);
   const [deleting, setDeleting] = useState<Patient | null>(null);
   const [doctorLabel, setDoctorLabel] = useState<DoctorLookup | null>(null);
@@ -117,10 +119,16 @@ export function PatientsView() {
             : "Every patient, their condition and care status"
         }
         actions={
-          <Button size="lg" onClick={onCreate} className="w-full sm:w-auto">
-            <Plus data-icon="inline-start" />
-            Add patient
-          </Button>
+          <>
+            <Button variant="outline" size="lg" onClick={() => setImportOpen(true)} className="w-full sm:w-auto">
+              <Upload data-icon="inline-start" />
+              Import CSV
+            </Button>
+            <Button size="lg" onClick={onCreate} className="w-full sm:w-auto">
+              <Plus data-icon="inline-start" />
+              Add patient
+            </Button>
+          </>
         }
       />
 
@@ -182,6 +190,7 @@ export function PatientsView() {
       </div>
 
       <PatientFormSheet open={formOpen} onOpenChange={setFormOpen} patient={editing} />
+      <CsvImportDialog kind="patients" open={importOpen} onOpenChange={setImportOpen} />
       <DeletePatientDialog patient={deleting} onOpenChange={(open) => !open && setDeleting(null)} />
     </>
   );
