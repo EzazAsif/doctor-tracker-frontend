@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useAddDoctorPatient, useCreatePatient, useUpdatePatient } from "@/hooks/queries/use-patients";
+import { useMe } from "@/hooks/queries/use-auth";
 import { errorMessage } from "@/lib/api/client";
 import { CONDITIONS, GENDERS, STATUSES, type DoctorLookup, type Patient } from "@/lib/api/types";
 import { applyServerErrors, PHONE_RE } from "@/lib/forms";
@@ -80,6 +81,8 @@ const conditionItems = CONDITIONS.map((c) => ({ value: c, label: c }));
 const statusItems = STATUSES.map((s) => ({ value: s, label: STATUS_LABEL[s] }));
 
 export function PatientFormSheet({ open, onOpenChange, patient, doctor }: PatientFormSheetProps) {
+  const { data: user } = useMe();
+  const assignedDoctorId = doctor?._id ?? (user?.role === "doctor" ? user.doctor : undefined);
   const isEdit = Boolean(patient);
   const create = useCreatePatient();
   const addToDoctor = useAddDoctorPatient(doctor?._id ?? "");
@@ -94,12 +97,12 @@ export function PatientFormSheet({ open, onOpenChange, patient, doctor }: Patien
     reset,
     setError,
     formState: { errors, isDirty },
-  } = useForm<FormInput, unknown, Values>({ resolver: zodResolver(schema), defaultValues: defaults(null, doctor?._id) });
+  } = useForm<FormInput, unknown, Values>({ resolver: zodResolver(schema), defaultValues: defaults(null, assignedDoctorId) });
 
   useEffect(() => {
     // a stale picked doctor is harmless: the picker only uses it when its id matches the field
-    if (open) reset(defaults(patient, doctor?._id));
-  }, [open, patient, doctor?._id, reset]);
+    if (open) reset(defaults(patient, assignedDoctorId));
+  }, [open, patient, assignedDoctorId, reset]);
 
   const notesLength = useWatch({ control, name: "notes" })?.length ?? 0;
 
@@ -136,7 +139,7 @@ export function PatientFormSheet({ open, onOpenChange, patient, doctor }: Patien
         <SheetHeader className="border-b px-5 py-4 sm:px-6">
           <SheetTitle className="text-xl font-semibold">{isEdit ? "Edit patient" : "Add patient"}</SheetTitle>
           <SheetDescription>
-            {doctor && !isEdit ? `Admitting under ${doctor.name}` : isEdit ? "Update clinical and contact details." : "Register a patient and assign their doctor."}
+            {doctor && !isEdit ? `Admitting under ${doctor.name}` : user?.role === "doctor" && !isEdit ? "Register a patient under your care." : isEdit ? "Update clinical and contact details." : "Register a patient and assign their doctor."}
           </SheetDescription>
         </SheetHeader>
 
@@ -238,7 +241,7 @@ export function PatientFormSheet({ open, onOpenChange, patient, doctor }: Patien
             )}
           </FormField>
 
-          {!doctor && (
+          {!doctor && user?.role !== "doctor" && (
             <FormField label="Doctor" error={errors.doctor?.message} className="sm:col-span-6">
               {(f) => (
                 <Controller

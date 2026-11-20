@@ -19,6 +19,7 @@ import { PatientFormSheet } from "@/components/patients/patient-form-sheet";
 import { Button } from "@/components/ui/button";
 import { useDoctor } from "@/hooks/queries/use-doctors";
 import { usePatients } from "@/hooks/queries/use-patients";
+import { useMe } from "@/hooks/queries/use-auth";
 import { toInt, useUrlState } from "@/hooks/use-url-state";
 import { CONDITIONS, GENDERS, STATUSES, type DoctorLookup, type Patient } from "@/lib/api/types";
 
@@ -37,6 +38,7 @@ const SORT_OPTIONS: Option[] = [
 ];
 
 export function PatientsView() {
+  const { data: user } = useMe();
   const { values, setParams, clear } = useUrlState(KEYS, { sort: "-admissionDate" });
   const [formOpen, setFormOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
@@ -62,7 +64,7 @@ export function PatientsView() {
 
   const { data, isLoading, isFetching, error, refetch } = usePatients(params);
   // a shared link may carry ?doctor=<id>: fetch its name for the picker label
-  const needsDoctorName = Boolean(values.doctor) && doctorLabel?._id !== values.doctor;
+  const needsDoctorName = user?.role !== "doctor" && Boolean(values.doctor) && doctorLabel?._id !== values.doctor;
   const { data: filterDoctor } = useDoctor(values.doctor, needsDoctorName);
   const pickerSelected = doctorLabel?._id === values.doctor ? doctorLabel : filterDoctor ?? null;
 
@@ -101,10 +103,10 @@ export function PatientsView() {
   const onDelete = useCallback((p: Patient) => setDeleting(p), []);
 
   const dateValue = useMemo(() => ({ from: values.from, to: values.to }), [values.from, values.to]);
-  const columns = useMemo(() => patientColumns({ onEdit, onDelete }), [onEdit, onDelete]);
+  const columns = useMemo(() => patientColumns({ onEdit, onDelete, showDoctor: user?.role !== "doctor" }), [onEdit, onDelete, user?.role]);
   const renderMobileCard = useCallback(
-    (p: Patient) => <PatientMobileCard patient={p} onEdit={onEdit} onDelete={onDelete} />,
-    [onEdit, onDelete],
+    (p: Patient) => <PatientMobileCard patient={p} onEdit={onEdit} onDelete={onDelete} showDoctor={user?.role !== "doctor"} />,
+    [onEdit, onDelete, user?.role],
   );
 
   return (
@@ -146,15 +148,17 @@ export function PatientsView() {
           <FilterSelect label="Condition" allLabel="All conditions" value={values.condition} options={CONDITION_OPTIONS} onChange={onCondition} />
           <FilterSelect label="Status" allLabel="All statuses" value={values.status} options={STATUS_OPTIONS} onChange={onStatus} />
           <FilterSelect label="Gender" allLabel="All genders" value={values.gender} options={GENDER_OPTIONS} onChange={onGender} />
-          <DoctorPicker
-            aria-label="Filter by doctor"
-            value={values.doctor}
-            selected={pickerSelected}
-            onChange={onDoctor}
-            placeholder="All doctors"
-            allowClear
-            className="sm:w-[200px]"
-          />
+          {user?.role !== "doctor" && (
+            <DoctorPicker
+              aria-label="Filter by doctor"
+              value={values.doctor}
+              selected={pickerSelected}
+              onChange={onDoctor}
+              placeholder="All doctors"
+              allowClear
+              className="sm:w-[200px]"
+            />
+          )}
           <DateRangePicker value={dateValue} onChange={onDates} placeholder="Admitted any time" label="Admitted between" />
           <FilterSelect label="Sort" highlight={false} value={values.sort} options={SORT_OPTIONS} onChange={onSort} />
         </FilterBar>

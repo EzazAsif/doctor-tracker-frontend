@@ -20,4 +20,6 @@ export const qk = {
     list: (params: PatientListParams) => [...qk.patients.lists(), params] as const,
   },
   dashboard: (range: { from?: string; to?: string }) => ["dashboard", range] as const,
+  staff: ["staff"] as const,
+  activity: (page: number) => ["activity", page] as const,
 };

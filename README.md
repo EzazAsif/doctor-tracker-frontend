@@ -1,6 +1,6 @@
 # DoctorTracker — Frontend
 
-Admin portal for managing doctors and their patients. Admins sign in, browse and filter the doctor roster, open a doctor to manage their caseload, search and edit every patient, and read a dashboard of admissions, conditions, statuses and caseloads over any date range. Built with Next.js 16 (App Router), TanStack Query and Recharts on top of an Express + MongoDB API.
+Clinic portal for managing doctors and patients. Admins manage the roster, staff accounts, imports and dashboard; doctor accounts work with only their own patient records. The portal also keeps a privacy-conscious activity history of record changes. Built with Next.js 16 (App Router), TanStack Query and Recharts on top of an Express + MongoDB API.
 
 **Live:** https://doctor-tracker-frontend-lemon.vercel.app
 **API:** https://doctor-tracker-backend-eight.vercel.app ([backend repo](https://github.com/EzazAsif/doctor-tracker-backend))
@@ -15,6 +15,11 @@ Admin portal for managing doctors and their patients. Admins sign in, browse and
 - Doctors: search, specialization/hospital/date filters, sortable columns, pagination, add/edit dialog, delete confirm.
 - Doctor detail: profile with copyable contact info and status counts, plus their patient table with add, edit and remove.
 - Patients: search plus condition, status, gender, doctor and admission-date filters, an edit drawer, and optimistic delete.
+- Staff: create separate admin and doctor accounts, link doctor accounts by email, and deactivate/reactivate access.
+- Activity history: see the actor, action, record ID, changed field names and import counts without copying patient details into the log.
+- CSV imports for doctors and patients include templates, a row preview and row-level validation results.
+- Doctor accounts can view and manage their own patients; admin-only pages and API routes are restricted by role.
+- Deactivated accounts lose API access immediately, even if they still have an unexpired session cookie.
 - Search, filters, sort and page all live in the URL, so any view can be shared and back/forward works.
 - Forms use react-hook-form + zod, and 400/409 errors from the API land on the right field.
 - Skeletons, empty states, error states with retry, and toasts.
@@ -64,7 +69,7 @@ src/
   app/
     login/                 sign-in page
     (app)/                 authenticated shell (sidebar + header)
-      dashboard/  doctors/  doctors/[id]/  patients/
+      dashboard/  doctors/  doctors/[id]/  patients/  activity/  staff/
   components/
     common/                DataTable, Pagination, SearchInput, FilterBar, DateRangePicker,
                            ConfirmDialog, EmptyState, ErrorState, PageHeader, StatStrip
@@ -90,7 +95,7 @@ Instead, `next.config.ts` rewrites `/api/:path*` to `${BACKEND_URL}/api/:path*`.
 - **Real route protection.** Next's proxy (the old middleware) can read the same cookie and verify the JWT with `jose` before any page renders. Logged-out users never see a flash of protected UI.
 - **Hidden backend URL.** `BACKEND_URL` is server-only, so the backend address never ships in the client bundle.
 
-The trade-off is one extra hop through Vercel's edge per API call, and `JWT_SECRET` has to be shared between the two deployments. For an admin tool, both are worth the safer session model.
+The trade-off is one extra hop through Vercel's edge per API call, and `JWT_SECRET` has to be shared between the two deployments. The proxy routes doctors to their patient workspace; the API enforces the same role boundary and scopes patient queries to the linked doctor account.
 
 ### 2. TanStack Query plus URL search params, not Redux or Context
 

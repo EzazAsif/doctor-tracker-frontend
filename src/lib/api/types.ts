@@ -16,7 +16,32 @@ export interface User {
   _id: ID;
   name: string;
   email: string;
-  role: "admin";
+  role: "admin" | "doctor";
+  doctor?: ID;
+}
+
+export interface StaffUser {
+  _id: ID;
+  name: string;
+  email: string;
+  role: User["role"];
+  active: boolean;
+  createdAt: string;
+  doctor?: { _id: ID; name: string; specialization: string; email: string } | null;
+}
+
+export interface ActivityEvent {
+  _id: ID;
+  actor: { _id: ID; name: string; role: User["role"] } | null;
+  actorRole: User["role"];
+  action: "created" | "updated" | "deleted" | "imported" | "deactivated";
+  resource: "doctor" | "patient" | "user";
+  resourceId: string;
+  fields?: string[];
+  importedCount?: number;
+  failedCount?: number;
+  relatedCount?: number;
+  createdAt: string;
 }
 
 export interface Doctor {

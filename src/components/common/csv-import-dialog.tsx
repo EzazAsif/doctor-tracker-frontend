@@ -10,6 +10,7 @@ import { useImportPatients } from "@/hooks/queries/use-patients";
 import { parseCsv, type CsvRow } from "@/lib/csv";
 import type { ImportResult } from "@/lib/api/endpoints";
 import { errorMessage } from "@/lib/api/client";
+import { useMe } from "@/hooks/queries/use-auth";
 
 type ImportKind = "doctors" | "patients";
 
@@ -40,6 +41,9 @@ interface CsvImportDialogProps {
 
 export function CsvImportDialog({ kind, open, onOpenChange }: CsvImportDialogProps) {
   const config = CONFIG[kind];
+  const { data: user } = useMe();
+  const doctorAccount = kind === "patients" && user?.role === "doctor";
+  const requiredHeaders = doctorAccount ? config.required.filter((header) => header !== "doctorEmail") : config.required;
   const importDoctors = useImportDoctors();
   const importPatients = useImportPatients();
   const pending = importDoctors.isPending || importPatients.isPending;
@@ -77,7 +81,7 @@ export function CsvImportDialog({ kind, open, onOpenChange }: CsvImportDialogPro
     try {
       const parsed = parseCsv(await file.text());
       if (parsed.length > 100) throw new Error("A file can contain up to 100 records.");
-      const missing = config.required.filter((header) => !(header.toLowerCase() in parsed[0]));
+      const missing = requiredHeaders.filter((header) => !(header.toLowerCase() in parsed[0]));
       if (missing.length) throw new Error(`Missing columns: ${missing.join(", ")}.`);
       const canonicalHeaders = new Map(config.headers.map((header) => [header.toLowerCase(), header]));
       const normalized = parsed.map((row) =>
@@ -126,7 +130,7 @@ export function CsvImportDialog({ kind, open, onOpenChange }: CsvImportDialogPro
             <Input id={`csv-${kind}`} type="file" accept=".csv,text/csv" disabled={pending} onChange={(event) => onFileChange(event.target.files?.[0])} />
             {fileName && <p className="text-xs text-muted-foreground">{fileName}</p>}
             <p className="text-xs text-muted-foreground">Required columns: {config.required.join(", ")}</p>
-            {kind === "patients" && <p className="text-xs text-muted-foreground">Use the doctor&apos;s email in <code>doctorEmail</code>; blank status and admission date use the defaults.</p>}
+          {kind === "patients" && <p className="text-xs text-muted-foreground">{doctorAccount ? "Imported records will be assigned to your account." : <>Use the doctor&apos;s email in <code>doctorEmail</code>.</>} Blank status and admission date use the defaults.</p>}
             <Button type="button" variant="ghost" size="sm" className="w-fit px-0" onClick={downloadTemplate}>
               <Download data-icon="inline-start" /> Download CSV template
             </Button>

@@ -14,7 +14,7 @@ function SidebarBody() {
   return (
     <div className="flex h-full flex-col gap-8 px-4 py-6">
       <Link
-        href="/dashboard"
+        href="/"
         className="self-start rounded-lg px-1 outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
       >
         <Logo />
@@ -76,7 +76,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-white/5 bg-sidebar px-4 text-sidebar-foreground shadow-sm sm:px-6 lg:px-8">
         <Link
-          href="/dashboard"
+          href="/"
           className="shrink-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring lg:hidden"
           aria-label="Doctor Tracker home"
         >

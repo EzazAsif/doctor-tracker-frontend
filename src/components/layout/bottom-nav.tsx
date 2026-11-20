@@ -4,18 +4,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { NAV_ITEMS } from "./nav-items";
+import { useMe } from "@/hooks/queries/use-auth";
 
 /** Thumb-reach tab bar for < lg screens; the sidebar takes over from lg up. */
 export function BottomNav() {
   const pathname = usePathname();
+  const { data: user } = useMe();
+  const items = NAV_ITEMS.filter((item) => !item.adminOnly || user?.role === "admin");
 
   return (
     <nav
       aria-label="Main"
       className="fixed inset-x-0 bottom-0 z-30 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur supports-[backdrop-filter]:bg-card/80 lg:hidden"
     >
-      <ul className="mx-auto grid max-w-md grid-cols-3">
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+      <ul className="mx-auto grid max-w-2xl" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+        {items.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(`${href}/`);
           return (
             <li key={href}>

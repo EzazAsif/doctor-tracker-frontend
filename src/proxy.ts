@@ -4,25 +4,25 @@ import { jwtVerify } from "jose";
 const PUBLIC_PATHS = ["/login"];
 const secret = new TextEncoder().encode(process.env.JWT_SECRET ?? "");
 
-async function hasValidSession(token: string | undefined) {
-  if (!token || !process.env.JWT_SECRET) return false;
+async function getSessionRole(token: string | undefined): Promise<"admin" | "doctor" | null> {
+  if (!token || !process.env.JWT_SECRET) return null;
   try {
     const { payload } = await jwtVerify(token, secret, { algorithms: ["HS256"] });
-    // authorization: only admins may use the portal
-    return payload.role === "admin";
+    return payload.role === "admin" || payload.role === "doctor" ? payload.role : null;
   } catch {
-    return false;
+    return null;
   }
 }
 
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const token = request.cookies.get("token")?.value;
-  const authed = await hasValidSession(token);
+  const role = await getSessionRole(token);
+  const authed = role !== null;
   const isPublic = PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
   if (isPublic) {
-    if (authed) return NextResponse.redirect(new URL("/dashboard", request.url));
+    if (role) return NextResponse.redirect(new URL(role === "doctor" ? "/patients" : "/dashboard", request.url));
     return NextResponse.next();
   }
 
@@ -35,7 +35,11 @@ export async function proxy(request: NextRequest) {
     return res;
   }
 
-  if (pathname === "/") return NextResponse.redirect(new URL("/dashboard", request.url));
+  if (role === "doctor" && pathname !== "/patients" && !pathname.startsWith("/patients/")) {
+    return NextResponse.redirect(new URL("/patients", request.url));
+  }
+
+  if (pathname === "/") return NextResponse.redirect(new URL(role === "doctor" ? "/patients" : "/dashboard", request.url));
   return NextResponse.next();
 }
 

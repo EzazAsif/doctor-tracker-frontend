@@ -10,6 +10,8 @@ import type {
   Patient,
   PatientInput,
   User,
+  StaffUser,
+  ActivityEvent,
 } from "./types";
 
 type Data<T> = { data: T };
@@ -85,4 +87,16 @@ export const patientsApi = {
 export const dashboardApi = {
   stats: (params: { from?: string; to?: string }, signal?: AbortSignal) =>
     api<Data<DashboardStats>>("/dashboard/stats", { query: { ...params }, signal }).then((r) => r.data),
+};
+
+export const staffApi = {
+  list: () => api<Data<StaffUser[]>>("/users").then((r) => r.data),
+  create: (body: { name: string; email: string; password: string; role: User["role"] }) =>
+    api<Data<User>>("/users", { method: "POST", body }).then((r) => r.data),
+  setActive: (id: ID, active: boolean) =>
+    api<Data<User>>(`/users/${id}`, { method: "PATCH", body: { active } }).then((r) => r.data),
+};
+
+export const activityApi = {
+  list: (params: { page: number; limit: number }) => api<Paginated<ActivityEvent>>("/activity", { query: params }),
 };
